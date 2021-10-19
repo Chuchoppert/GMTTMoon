@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlayerMovements : MonoBehaviour
 {
-    [Header("Set basics for Movements")]
-    public Vector3 SetGravity = new Vector3(0, -9.8f, 0);
-    public float RotationSpeed = 2;
-
-
     [Header("Look Actions")]
     public bool isFirstResetReady;
     public bool isOnGround = false;
@@ -17,10 +13,11 @@ public class PlayerMovements : MonoBehaviour
     public bool isReadyToLaunch = false;
     public bool isSubtractPowerGraph = false;
     public float PowerGraphAmount;
-    public float MaxPowerGpForAnotherAttempt =1;
 
 
     [Header("Set for PreLaunch Phase")]
+    public Vector3 SetGravity = new Vector3(0, -9.8f, 0);
+    public float RotationSpeed = 2;
     public Slider PowerGraph;
     public float Impulse = 10;
     public float PowerAmount = 1;
@@ -35,11 +32,16 @@ public class PlayerMovements : MonoBehaviour
     public float spaceBetweenPoints;
 
 
+    [Header("Set for Landing")]
+    public float MaxPowerGpForAnotherAttempt = 1;
+    public Camera UpVision_Camera;
+
     [Header("Look actions")]
     public Vector3 StartPosLr;
     public Vector3 preEndpos;
     public Vector3 ForceDir;
     public GameObject[] points;
+    public bool isMinimapActive = false;
 
 
     private Rigidbody rb;
@@ -51,13 +53,12 @@ public class PlayerMovements : MonoBehaviour
     private Quaternion initialRotation;
     private GameObject[] GuiasAEliminar;
 
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         Physics.gravity = SetGravity;
         rb = GetComponent<Rigidbody>();
-        transform.rotation = initialRotation;
+        transform.rotation = initialRotation;       
     }
 
     // Update is called once per frame
@@ -66,14 +67,13 @@ public class PlayerMovements : MonoBehaviour
         PowerGraph.value = Mathf.Clamp(PowerAmount, MinPower, (MaxPower * MaxPowerGpForAnotherAttempt)); //limite de la barra de fuerza 
 
         if (isOnGround == true) //Si la pelota esta parada entonces...  //cambiar por check ground en OnCollision para resetear las posiciones de la curva y la rotacion  
-        {  
+        {
             if(rb.velocity == Vector3.zero) //resetea la rotacion para el siguiente lanzamiento
             {
                 startingAttempt();
                 StartPosLr = transform.position;
                 preEndpos = ViewRotation.transform.position;
             }           
-            //preEndpos = ViewRotation.transform.position + offsetEndPos;
 
             if (Input.GetKeyUp(KeyCode.Space) && isSetRotation == false) //Detiene la rotacion y cualquier movimiento e inicia la barra de fuerza
             {
@@ -89,7 +89,7 @@ public class PlayerMovements : MonoBehaviour
             heading = preEndpos - StartPosLr;
             distance = heading.magnitude;
             ForceDir = ((heading / distance) * Impulse) * PowerGraphAmount;
-            //ForceDir = ((preEndpos - StartPosLr) * Impulse) * PowerGraphAmount;                     
+            //ForceDir = ((preEndpos - StartPosLr) * Impulse) * PowerGraphAmount;   //option 1                  
         }
     }
 
@@ -102,10 +102,28 @@ public class PlayerMovements : MonoBehaviour
             StayPhase();           
         }       
 
+        if(points.Length != 0)
+        {
+            if (points.Length != 0)
+            {
+                for (int i = 0; i < numberOfPoints; i++) //Guia de lanzamiento part2 (hace de separador de cada punto de la guia)  
+                {
+                    points[i].transform.position = PointPosition(i * spaceBetweenPoints);
+                }
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && isSetRotation == true) //detiene el movimiento de la barra
         {
             StopPowerGraph();
         }
+    }
+
+
+    Vector3 PointPosition(float t) //Guia de lanzamiento part3 (aqui es donde se "predice" la trayectoria)
+    {
+        Vector3 position = ((Vector3)transform.position + (ForceDir.normalized * Impulse * t) + 0.5f * (Physics.gravity * PowerGraphAmount) * (t * t)) * PowerGraphAmount;  //NUNCA TOQUEN PLIS, ni yo se como funciono grax :c
+        return position;
     }
 
 
@@ -122,26 +140,20 @@ public class PlayerMovements : MonoBehaviour
             }
         }
         isFirstResetReady = true;
+
+        Invoke("ZoomOut", 0); //Quita el zoom en 0sg
     }
 
 
     public void StayPhase() //Permite la "rotacion" de la pelota
     {
-        //rb.AddTorque(AxisRotation * yRotation, ForceMode.Force);
-
         xMovement = OriginalMovementAxis.x;
         yMovement = OriginalMovementAxis.y;
-        ViewRotation.transform.position = new Vector3((Mathf.Clamp(ViewRotation.transform.position.x, -4, 4)), (Mathf.Clamp(ViewRotation.transform.position.y, -1, 6)), (transform.position.z + 2)); //limita el movimiento 
+        ViewRotation.transform.position = new Vector3((Mathf.Clamp( ViewRotation.transform.position.x, (transform.position.x - 4), (transform.position.x + 4) )), (Mathf.Clamp( ViewRotation.transform.position.y, (transform.position.y - 1), (transform.position.y + 6) )), (transform.position.z + 2)); //limita el movimiento 
 
         ViewRotation.transform.Translate(new Vector3(xMovement, yMovement, 0), Space.World); //esta es la pos de referencia mas importante del codigo
-
-
-        //CHECAR QUE FUNCIONE SOLO SI HAY GUIAS EN LA ESCENA 
-        for (int i = 0; i < numberOfPoints; i++) //Guia de lanzamiento part2 (hace de separador de cada punto de la guia)  
-        {
-            points[i].transform.position = PointPosition(i * spaceBetweenPoints);
-        }
     }
+
 
     public void PreLaunchPhase() //Congela Movimiento de la pelota y activa barra de poder
     {
@@ -150,6 +162,7 @@ public class PlayerMovements : MonoBehaviour
 
         PowerGraph.gameObject.SetActive(true);   
     }
+
 
     public void StartPowerGraph() //permite el movimiento de la fuerza de la barra de poder
     {
@@ -171,6 +184,7 @@ public class PlayerMovements : MonoBehaviour
         }
     }
 
+
     public void StopPowerGraph()  //quita las restinciones de movimiento y rotacion y prepara el lanzamiento
     {
         rb.constraints = RigidbodyConstraints.None;
@@ -178,18 +192,22 @@ public class PlayerMovements : MonoBehaviour
         Invoke("LaunchPhase", 1);
 
         GuiasAEliminar = GameObject.FindGameObjectsWithTag("Guias");
-        for (int i = 0; i < GuiasAEliminar.Length; i++)
+        for (int i = 0; i < numberOfPoints; i++)
         {
             Destroy(GuiasAEliminar[i]);
         }
+        points = new GameObject[] { };
     }
 
+
     public void LaunchPhase() //oculta la barra e inicia el lanzamiento 
-    {       
+    {
+        UpVision_Camera.fieldOfView = 80;
         PowerGraph.gameObject.SetActive(false);
         rb.AddForce( ForceDir, ForceMode.Impulse);
         Invoke("ResetBooleans", 1);
     }
+
 
     public void ResetBooleans() //reset a los valores para el siguiente lanzamiento
     {       
@@ -198,12 +216,12 @@ public class PlayerMovements : MonoBehaviour
         isFirstResetReady = false;
     }
 
-    Vector3 PointPosition(float t) //Guia de lanzamiento part3 (aqui es donde se "predice" la trayectoria)
+    
+    public void ZoomOut()
     {
-        //Vector3 Dir = StartPosLr + preEndpos;      
-        Vector3 position = ((Vector3)transform.position + (ForceDir.normalized * Impulse * t) + 0.5f * (Physics.gravity * PowerGraphAmount) * (t * t)) * PowerGraphAmount;  //NUNCA TOQUEN PLIS, ni yo se como funciono grax :c
-        return position;
+        UpVision_Camera.fieldOfView = 42;
     }
+
 
     private void OnCollisionStay(Collision collision)
     {
@@ -212,6 +230,7 @@ public class PlayerMovements : MonoBehaviour
             isOnGround = true;            
         }
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
