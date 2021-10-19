@@ -153,7 +153,7 @@ Transform:
   - {fileID: 1811062122}
   - {fileID: 1480249011}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &206413248
 GameObject:
@@ -222,7 +222,7 @@ Transform:
   - {fileID: 1075205091}
   - {fileID: 1480602359}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &400569832
 GameObject:
@@ -317,7 +317,7 @@ Transform:
   m_LocalScale: {x: 3.8574202, y: 0.17577173, z: 2.5498202}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &478631209
 GameObject:
@@ -678,7 +678,7 @@ RectTransform:
   m_Children:
   - {fileID: 706141327}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -954,7 +954,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1685887902}
-  - {fileID: 1790306483}
   m_Father: {fileID: 292984494}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1367,7 +1366,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1243303857
 GameObject:
@@ -1810,7 +1809,7 @@ Transform:
   - {fileID: 478631210}
   - {fileID: 1109818232}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1514464388
 Rigidbody:
@@ -2110,14 +2109,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790306482}
-  m_LocalRotation: {x: 0.018935528, y: -0, z: -0, w: 0.9998207}
-  m_LocalPosition: {x: 0.27362588, y: -0.32499856, z: 2.5539224}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.27362588, y: 2.7098217, z: -3.3556013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1739667398}
   - {fileID: 1243303858}
-  m_Father: {fileID: 1075205091}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1811062122 stripped
 Transform:
