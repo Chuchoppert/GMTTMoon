@@ -15,12 +15,12 @@ public class InGame : MonoBehaviour
 
 
     private float Timer;
-    private bool onceTime;
-    private bool onceTimer;
+    //private bool onceTime;
+    //private bool onceTimer;
 
     private void Start()
     {
-        onceTimer = true;
+        //onceTimer = true;
         //Time.timeScale = 1f;
         //MensajeInitial.gameObject.SetActive(true);
     }
