@@ -23,8 +23,6 @@ public class PlayerMovements : MonoBehaviour
     public float Impulse = 10;
     public float PowerAmount = 1;
     public float MinPower = 0;
-    public float SetMaxPower = 1;
-    public float RealMaxPower;
 
 
     [Header("Set for trayectory line")]
@@ -32,17 +30,14 @@ public class PlayerMovements : MonoBehaviour
     public GameObject point;
     public int numberOfPoints;
     public float spaceBetweenPoints;
-
-
-    [Header("Set for Landing")]
-    public Camera UpVision_Camera;
+    public float CorrecionLineas;
 
     [Header("Look actions")]
     public Vector3 StartPosLr;
     public Vector3 preEndpos;
     public Vector3 ForceDir;
     public GameObject[] points;
-    public bool isMinimapActive = false;
+    public Camera UpVision_Camera;
 
 
     private Rigidbody rb;
@@ -60,7 +55,7 @@ public class PlayerMovements : MonoBehaviour
         Physics.gravity = SetGravity;
         rb = GetComponent<Rigidbody>();
         transform.rotation = initialRotation;
-        UpVision_Camera.orthographicSize = 17;
+        UpVision_Camera.orthographicSize = 24;
     }
 
 
@@ -124,7 +119,7 @@ public class PlayerMovements : MonoBehaviour
 
     Vector3 PointPosition(float t) //Guia de lanzamiento part3 (aqui es donde se "predice" la trayectoria)
     {
-        Vector3 position = ((Vector3)transform.position + (ForceDir.normalized * Impulse * t) + 0.5f * (Physics.gravity * PowerGraphAmount) * (t * t)) * PowerGraphAmount;  //NUNCA TOQUEN PLIS, ni yo se como funciono grax :c
+        Vector3 position = (((Vector3)transform.position + (ForceDir.normalized * Impulse * t) + 0.5f * (Physics.gravity * PowerGraphAmount) * (t * t)) * PowerGraphAmount) * CorrecionLineas;  //NUNCA TOQUEN PLIS, ni yo se como funciono grax :c
         return position;
     }
 

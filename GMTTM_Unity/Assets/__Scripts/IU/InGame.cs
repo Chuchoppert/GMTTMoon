@@ -8,13 +8,19 @@ public class InGame : MonoBehaviour
 {
     [Header("Set basics for HUD")]
     public TextMeshProUGUI Text_Time;
+    public TextMeshProUGUI Distance_Tx;
+    public GameObject Pos0;
     public GameObject Player;
+
+
     //public GameObject MensajeInitial;
-    public float AmountPerTime;
-    public float SlowTime;
+    //public float AmountPerTime;
+    //public float SlowTime;
 
 
+    public float DistanciaRecorrida;
     private float Timer;
+    
     //private bool onceTime;
     //private bool onceTimer;
 
@@ -26,10 +32,14 @@ public class InGame : MonoBehaviour
     }
     void Update()
     {
-        if(Player != null && Player.activeSelf == true) //Cronometro
+        DistanciaRecorrida = Vector3.Distance(Pos0.transform.position, Player.transform.position);
+
+        if (Player != null && Player.activeSelf == true) //Cronometro
         {
             Timer += Time.deltaTime;
             Text_Time.text = "Time: " + Timer.ToString("F2");
+
+            Distance_Tx.text = DistanciaRecorrida.ToString("F2") + " m";
         }
 
         /*if (onceTimer == true)
