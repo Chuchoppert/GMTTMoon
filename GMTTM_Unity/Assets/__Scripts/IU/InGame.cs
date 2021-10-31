@@ -19,7 +19,7 @@ public class InGame : MonoBehaviour
 
 
     public float DistanciaRecorrida;
-    private float Timer;
+    public float Timer = 60f;
     
     //private bool onceTime;
     //private bool onceTimer;
@@ -36,7 +36,7 @@ public class InGame : MonoBehaviour
 
         if (Player != null && Player.activeSelf == true) //Cronometro
         {
-            Timer += Time.deltaTime;
+            Timer -= Time.deltaTime;
             Text_Time.text = "Time: " + Timer.ToString("F2");
 
             Distance_Tx.text = DistanciaRecorrida.ToString("F2") + " m";
