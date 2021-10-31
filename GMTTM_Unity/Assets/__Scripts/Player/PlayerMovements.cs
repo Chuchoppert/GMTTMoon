@@ -69,19 +69,28 @@ public class PlayerMovements : MonoBehaviour
             if(rb.velocity == Vector3.zero) //resetea la rotacion para el siguiente lanzamiento
             {
                 startingAttempt();
-                StartPosLr = transform.position;
+                StartPosLr = gameObject.transform.position;
                 preEndpos = ViewRotation.transform.position;
+                if (Input.GetKeyUp(KeyCode.Space) && isSetRotation == false) //Detiene la rotacion y cualquier movimiento e inicia la barra de fuerza
+                {
+                    PreLaunchPhase();
+                }
+                if (isSetRotation == true && isReadyToLaunch == false) //permite el movimiento de la barra si es que esta activada
+                {
+                    StartPowerGraph();
+                }
+                //Debug.DrawLine(transform.position, transform.forward * 10, Color.red);
+                if (isSetRotation == false) //crea la fuerza para la rotacion
+                {
+                    OriginalMovementAxis = new Vector3((Input.GetAxis("Horizontal") * RotationSpeed * Time.deltaTime), (Input.GetAxis("Vertical") * RotationSpeed * Time.deltaTime), 0);
+                    StayPhase();
+                }
+                if (Input.GetKeyDown(KeyCode.Space) && isSetRotation == true) //detiene el movimiento de la barra
+                {
+                    StopPowerGraph();
+                }
             }           
 
-            if (Input.GetKeyUp(KeyCode.Space) && isSetRotation == false) //Detiene la rotacion y cualquier movimiento e inicia la barra de fuerza
-            {
-                PreLaunchPhase();
-            }
-
-            if (isSetRotation == true && isReadyToLaunch == false) //permite el movimiento de la barra si es que esta activada
-            {
-                StartPowerGraph();                          
-            }
             PowerGraph.value = PowerGraphAmount; //setea el valor a la barra de poder
 
             heading = preEndpos - StartPosLr;
@@ -92,15 +101,11 @@ public class PlayerMovements : MonoBehaviour
 
     private void FixedUpdate() //Es mejor que update() cuando se trata de fisicas
     {
-        //Debug.DrawLine(transform.position, transform.forward * 10, Color.red);
-        if (isSetRotation == false) //crea la fuerza para la rotacion
-        {
-            OriginalMovementAxis = new Vector3((Input.GetAxis("Horizontal") * RotationSpeed * Time.deltaTime), (Input.GetAxis("Vertical") * RotationSpeed * Time.deltaTime), 0);       
-            StayPhase();           
-        }       
+          
 
         if(points.Length != 0)
         {
+
             if (points.Length != 0)
             {
                 for (int i = 0; i < numberOfPoints; i++) //Guia de lanzamiento part2 (hace de separador de cada punto de la guia)  
@@ -108,18 +113,16 @@ public class PlayerMovements : MonoBehaviour
                     points[i].transform.position = PointPosition(i * spaceBetweenPoints);
                 }
             }
+
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isSetRotation == true) //detiene el movimiento de la barra
-        {
-            StopPowerGraph();
-        }
+        
     }
 
 
     Vector3 PointPosition(float t) //Guia de lanzamiento part3 (aqui es donde se "predice" la trayectoria)
     {
-        Vector3 position = (((Vector3)transform.position + (ForceDir.normalized * Impulse * t) + 0.5f * (Physics.gravity * PowerGraphAmount) * (t * t)) * PowerGraphAmount) * CorrecionLineas;  //NUNCA TOQUEN PLIS, ni yo se como funciono grax :c
+        Vector3 position = gameObject.transform.position + (((ForceDir.normalized * Impulse * t) + 0.5f * (Physics.gravity * PowerGraphAmount) * (t * t)) * PowerGraphAmount) * CorrecionLineas;  //NUNCA TOQUEN PLIS, ni yo se como funciono grax :c
         return position;
     }
 
