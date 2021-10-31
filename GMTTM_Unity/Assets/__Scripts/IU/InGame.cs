@@ -11,6 +11,9 @@ public class InGame : MonoBehaviour
     public TextMeshProUGUI Distance_Tx;
     public GameObject Pos0;
     public GameObject Player;
+    public GameObject MenuGameOver;
+    public GameObject GO_Timer;
+    public float Timer = 60f;
 
 
     //public GameObject MensajeInitial;
@@ -18,8 +21,8 @@ public class InGame : MonoBehaviour
     //public float SlowTime;
 
 
-    public float DistanciaRecorrida;
-    public float Timer = 60f;
+    private float DistanciaRecorrida;
+
     
     //private bool onceTime;
     //private bool onceTimer;
@@ -40,6 +43,12 @@ public class InGame : MonoBehaviour
             Text_Time.text = "Time: " + Timer.ToString("F2");
 
             Distance_Tx.text = DistanciaRecorrida.ToString("F2") + " m";
+        }
+
+        if(Timer <= 0)
+        {
+            MenuGameOver.gameObject.SetActive(true);
+            GO_Timer.gameObject.SetActive(false);
         }
 
         /*if (onceTimer == true)

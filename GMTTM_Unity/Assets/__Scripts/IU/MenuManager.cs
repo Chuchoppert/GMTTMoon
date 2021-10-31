@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour 
 {
-    //public GameObject OptionsMenu;
+    public GameObject OptionsMenu;
 
     public void BotonQuit()
     {
