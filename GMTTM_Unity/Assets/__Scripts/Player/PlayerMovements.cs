@@ -14,6 +14,7 @@ public class PlayerMovements : MonoBehaviour
     public bool isSubtractPowerGraph = false;
     public float PowerGraphAmount;
     public static float MaxPowerGpForAnotherAttempt;
+    public float POV = 24;
 
 
     [Header("Set for PreLaunch Phase")]
@@ -55,7 +56,7 @@ public class PlayerMovements : MonoBehaviour
         Physics.gravity = SetGravity;
         rb = GetComponent<Rigidbody>();
         transform.rotation = initialRotation;
-        UpVision_Camera.orthographicSize = 24;
+        UpVision_Camera.orthographicSize = POV;
     }
 
 
