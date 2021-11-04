@@ -91,8 +91,8 @@ public class PlayerMovements : MonoBehaviour
                     StopPowerGraph();
                 }
             }           
-
-            PowerGraph.value = PowerGraphAmount; //setea el valor a la barra de poder
+            // -1 + abs
+            PowerGraph.value = Math.Abs((PowerGraphAmount-1)); //setea el valor a la barra de poder
 
             heading = preEndpos - StartPosLr;
             distance = heading.magnitude;
