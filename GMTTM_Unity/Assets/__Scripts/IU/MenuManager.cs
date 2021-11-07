@@ -5,21 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour 
 {
-    public void MN_BotonStart()
-    {
-        Debug.Log("1");
-        SceneManager.LoadScene(1);
-    }
+    public GameObject OptionsMenu;
+
     public void BotonQuit()
     {
         Application.Quit();
     }
-    public void BotonMainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-    public void BotonRestart(string escena)
+    
+    public void BotonChangeScene(string escena)
     {
         SceneManager.LoadScene(escena);
     }
+
+   /* public void BotonDeTeclado()
+    {
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            gameObject.SetActive.
+        }
+
+        
+    }*/
 }

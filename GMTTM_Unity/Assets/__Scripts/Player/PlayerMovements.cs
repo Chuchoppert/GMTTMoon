@@ -13,6 +13,8 @@ public class PlayerMovements : MonoBehaviour
     public bool isReadyToLaunch = false;
     public bool isSubtractPowerGraph = false;
     public float PowerGraphAmount;
+    public static float MaxPowerGpForAnotherAttempt;
+    public float POV = 24;
 
 
     [Header("Set for PreLaunch Phase")]
@@ -22,7 +24,6 @@ public class PlayerMovements : MonoBehaviour
     public float Impulse = 10;
     public float PowerAmount = 1;
     public float MinPower = 0;
-    public float MaxPower = 1;
 
 
     [Header("Set for trayectory line")]
@@ -30,18 +31,14 @@ public class PlayerMovements : MonoBehaviour
     public GameObject point;
     public int numberOfPoints;
     public float spaceBetweenPoints;
-
-
-    [Header("Set for Landing")]
-    public float MaxPowerGpForAnotherAttempt = 1;
-    public Camera UpVision_Camera;
+    public float CorrecionLineas;
 
     [Header("Look actions")]
     public Vector3 StartPosLr;
     public Vector3 preEndpos;
     public Vector3 ForceDir;
     public GameObject[] points;
-    public bool isMinimapActive = false;
+    public Camera UpVision_Camera;
 
 
     private Rigidbody rb;
@@ -52,58 +49,64 @@ public class PlayerMovements : MonoBehaviour
     private Vector3 OriginalMovementAxis;
     private Quaternion initialRotation;
     private GameObject[] GuiasAEliminar;
-
     
+
     void Start()
     {
         Physics.gravity = SetGravity;
         rb = GetComponent<Rigidbody>();
-        transform.rotation = initialRotation;       
+        transform.rotation = initialRotation;
+        UpVision_Camera.orthographicSize = POV;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        PowerGraph.value = Mathf.Clamp(PowerAmount, MinPower, (MaxPower * MaxPowerGpForAnotherAttempt)); //limite de la barra de fuerza 
+
+        PowerGraph.value = Mathf.Clamp(PowerAmount, MinPower, MaxPowerGpForAnotherAttempt); //limite de la barra de fuerza 
 
         if (isOnGround == true) //Si la pelota esta parada entonces...  //cambiar por check ground en OnCollision para resetear las posiciones de la curva y la rotacion  
         {
             if(rb.velocity == Vector3.zero) //resetea la rotacion para el siguiente lanzamiento
             {
                 startingAttempt();
-                StartPosLr = transform.position;
+                StartPosLr = gameObject.transform.position;
                 preEndpos = ViewRotation.transform.position;
+                if (Input.GetKeyUp(KeyCode.Space) && isSetRotation == false) //Detiene la rotacion y cualquier movimiento e inicia la barra de fuerza
+                {
+                    PreLaunchPhase();
+                }
+                if (isSetRotation == true && isReadyToLaunch == false) //permite el movimiento de la barra si es que esta activada
+                {
+                    StartPowerGraph();
+                }
+                //Debug.DrawLine(transform.position, transform.forward * 10, Color.red);
+                if (isSetRotation == false) //crea la fuerza para la rotacion
+                {
+                    OriginalMovementAxis = new Vector3((Input.GetAxis("Horizontal") * RotationSpeed * Time.deltaTime), (Input.GetAxis("Vertical") * RotationSpeed * Time.deltaTime), 0);
+                    StayPhase();
+                }
+                if (Input.GetKeyDown(KeyCode.Space) && isSetRotation == true) //detiene el movimiento de la barra
+                {
+                    StopPowerGraph();
+                }
             }           
-
-            if (Input.GetKeyUp(KeyCode.Space) && isSetRotation == false) //Detiene la rotacion y cualquier movimiento e inicia la barra de fuerza
-            {
-                PreLaunchPhase();
-            }
-
-            if (isSetRotation == true && isReadyToLaunch == false) //permite el movimiento de la barra si es que esta activada
-            {
-                StartPowerGraph();                          
-            }
-            PowerGraph.value = PowerGraphAmount; //setea el valor a la barra de poder
+            // -1 + abs
+            PowerGraph.value = Math.Abs((PowerGraphAmount-1)); //setea el valor a la barra de poder
 
             heading = preEndpos - StartPosLr;
             distance = heading.magnitude;
-            ForceDir = ((heading / distance) * Impulse) * PowerGraphAmount;
-            //ForceDir = ((preEndpos - StartPosLr) * Impulse) * PowerGraphAmount;   //option 1                  
+            ForceDir = ( ((heading / distance) * Impulse) * PowerGraphAmount);                
         }
     }
 
     private void FixedUpdate() //Es mejor que update() cuando se trata de fisicas
     {
-        //Debug.DrawLine(transform.position, transform.forward * 10, Color.red);
-        if (isSetRotation == false) //crea la fuerza para la rotacion
-        {
-            OriginalMovementAxis = new Vector3((Input.GetAxis("Horizontal") * RotationSpeed * Time.deltaTime), (Input.GetAxis("Vertical") * RotationSpeed * Time.deltaTime), 0);       
-            StayPhase();           
-        }       
+          
 
         if(points.Length != 0)
         {
+
             if (points.Length != 0)
             {
                 for (int i = 0; i < numberOfPoints; i++) //Guia de lanzamiento part2 (hace de separador de cada punto de la guia)  
@@ -111,18 +114,16 @@ public class PlayerMovements : MonoBehaviour
                     points[i].transform.position = PointPosition(i * spaceBetweenPoints);
                 }
             }
+
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isSetRotation == true) //detiene el movimiento de la barra
-        {
-            StopPowerGraph();
-        }
+        
     }
 
 
     Vector3 PointPosition(float t) //Guia de lanzamiento part3 (aqui es donde se "predice" la trayectoria)
     {
-        Vector3 position = ((Vector3)transform.position + (ForceDir.normalized * Impulse * t) + 0.5f * (Physics.gravity * PowerGraphAmount) * (t * t)) * PowerGraphAmount;  //NUNCA TOQUEN PLIS, ni yo se como funciono grax :c
+        Vector3 position = gameObject.transform.position + (((ForceDir.normalized * Impulse * t) + 0.5f * (Physics.gravity * PowerGraphAmount) * (t * t)) * PowerGraphAmount) * CorrecionLineas;  //NUNCA TOQUEN PLIS, ni yo se como funciono grax :c
         return position;
     }
 
@@ -140,8 +141,6 @@ public class PlayerMovements : MonoBehaviour
             }
         }
         isFirstResetReady = true;
-
-        Invoke("ZoomOut", 0); //Quita el zoom en 0sg
     }
 
 
@@ -169,7 +168,7 @@ public class PlayerMovements : MonoBehaviour
         if (isSubtractPowerGraph == false)
         {
             PowerGraphAmount += PowerAmount * Time.deltaTime;
-            if (PowerGraphAmount > MaxPower)
+            if (PowerGraphAmount > MaxPowerGpForAnotherAttempt)
             {
                 isSubtractPowerGraph = true;
             }
@@ -191,7 +190,7 @@ public class PlayerMovements : MonoBehaviour
         isReadyToLaunch = true;
         Invoke("LaunchPhase", 1);
 
-        GuiasAEliminar = GameObject.FindGameObjectsWithTag("Guias");
+        GuiasAEliminar = GameObject.FindGameObjectsWithTag("Guias"); //Guia de lanzamiento partFinal (Elimina las guias)
         for (int i = 0; i < numberOfPoints; i++)
         {
             Destroy(GuiasAEliminar[i]);
@@ -202,7 +201,6 @@ public class PlayerMovements : MonoBehaviour
 
     public void LaunchPhase() //oculta la barra e inicia el lanzamiento 
     {
-        UpVision_Camera.fieldOfView = 80;
         PowerGraph.gameObject.SetActive(false);
         rb.AddForce( ForceDir, ForceMode.Impulse);
         Invoke("ResetBooleans", 1);
@@ -216,12 +214,6 @@ public class PlayerMovements : MonoBehaviour
         isFirstResetReady = false;
     }
 
-    
-    public void ZoomOut()
-    {
-        UpVision_Camera.fieldOfView = 42;
-    }
-
 
     private void OnCollisionStay(Collision collision)
     {
@@ -229,12 +221,5 @@ public class PlayerMovements : MonoBehaviour
         {
             isOnGround = true;            
         }
-    }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //aqui agregar lo de distance entre dos puntos y usar el MaxPowerGpForAnotherAttempt que se usa en la linea 6 para decrementar la fuerza maxima de la barra de poder
-        
     }
 }
