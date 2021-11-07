@@ -473,8 +473,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478631209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.18, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1514464387}
   m_RootOrder: 0
@@ -938,7 +938,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -675, y: -269}
+  m_AnchoredPosition: {x: 731, y: -312}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &663083118
@@ -2012,7 +2012,7 @@ MonoBehaviour:
   target: {fileID: 1109818232}
   smoothSpeed: 0.125
   ViewOffset: {x: 0, y: 0, z: -8}
-  TargetOffset: {x: 0, y: -1.6, z: -2.5}
+  TargetOffset: {x: 0, y: -0.2, z: 0}
 --- !u!1 &1108934760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,7 +2040,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108934760}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.27362588, y: 12.06, z: 2.210791}
+  m_LocalPosition: {x: -0.27, y: 7, z: 16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 292984494}
@@ -2174,6 +2174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1514464386}
   smoothSpeed: 0.125
+  UpViewOffset: {x: 0, y: 0, z: 1.4}
 --- !u!20 &1108934765
 Camera:
   m_ObjectHideFlags: 0
@@ -2201,7 +2202,7 @@ Camera:
   far clip plane: 34
   field of view: 60
   orthographic: 1
-  orthographic size: 24
+  orthographic size: 30
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2649,7 +2650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 674.3, y: -470}
+  m_AnchoredPosition: {x: -703, y: 461}
   m_SizeDelta: {x: 427.8613, y: 106.9653}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1479129273
@@ -2887,7 +2888,7 @@ MonoBehaviour:
   SetGravity: {x: 0, y: -9.8, z: 0}
   RotationSpeed: 3
   PowerGraph: {fileID: 1776569745}
-  Impulse: 12.5
+  Impulse: 20
   PowerAmount: 1
   MinPower: 0
   ViewRotation: {fileID: 1109818231}
@@ -3729,7 +3730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 42, y: 458}
+  m_AnchoredPosition: {x: -700, y: -467}
   m_SizeDelta: {x: 427.8613, y: 106.9653}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957620854
