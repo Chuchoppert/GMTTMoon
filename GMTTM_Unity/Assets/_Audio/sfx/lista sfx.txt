@@ -1,0 +1,29 @@
+launch
+	*min, mid, max
+hit/land
+	*far, mid, x
+roll
+caída al vacío
+*respawn
+*resistencia del viento
+
+
+
+*ambient
+*beeps+boops de interior de nave espacial
+*"voces" por radio
+
+
+
+hover
+click
+pause/unpause
+*game over
+*startgame
+*exitgame
+
+
+*puede ser en segunda etapa
+
+
+
