@@ -40,7 +40,7 @@ public class InGame : MonoBehaviour
         if (Player != null && Player.activeSelf == true) //Cronometro
         {
             Timer -= Time.deltaTime;
-            Text_Time.text = "Time: " + Timer.ToString("F2");
+            Text_Time.text = "Fuel: " + Timer.ToString("F2");
 
             Distance_Tx.text = DistanciaRecorrida.ToString("F2") + " m";
         }

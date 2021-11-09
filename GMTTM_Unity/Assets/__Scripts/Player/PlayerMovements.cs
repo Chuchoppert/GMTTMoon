@@ -139,6 +139,8 @@ public class PlayerMovements : MonoBehaviour
             {
                 points[i] = Instantiate(point, StartPosLr, Quaternion.identity);
             }
+
+            //PowerGraph.value = MaxPowerGpForAnotherAttempt;
         }
         isFirstResetReady = true;
     }
