@@ -42,7 +42,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceV: 0
   limiter: 0
-  divisor: 1
+  divisor: 4.15
   LimitadorMax: 0.3
 --- !u!1001 &988942049956432559
 PrefabInstance:
@@ -57,27 +57,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5224767
+      value: 3.4171991
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.5224767
+      value: 3.4171991
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5224767
+      value: 3.4171991
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.002
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.71
+      value: -8.31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.032
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
       propertyPath: m_LocalRotation.w
@@ -120,6 +120,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c92b40585031c6409af65f4f03c6166, type: 3}
       propertyPath: m_TagString
       value: Piso
       objectReference: {fileID: 0}
@@ -152,7 +156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ef8efc201ab15c42b422b14b915cf3b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.151
+      value: -2.14
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ef8efc201ab15c42b422b14b915cf3b, type: 3}
       propertyPath: m_LocalPosition.z
