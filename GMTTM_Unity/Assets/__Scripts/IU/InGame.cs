@@ -49,9 +49,7 @@ public class InGame : MonoBehaviour
         if(Timer <= 0)
         {
             MenuGameOver.gameObject.SetActive(true);
-            GO_Timer.gameObject.SetActive(false);
-            Text_Time.gameObject.SetActive(false);
-            Distance_Tx.gameObject.SetActive(false);
+            GO_Timer.gameObject.SetActive(false);     
             Minimap.gameObject.SetActive(false);
         }
 

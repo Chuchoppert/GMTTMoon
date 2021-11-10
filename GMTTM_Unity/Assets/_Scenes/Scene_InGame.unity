@@ -225,7 +225,7 @@ MonoBehaviour:
   Player: {fileID: 1514464386}
   MenuGameOver: {fileID: 900348504}
   GO_Timer: {fileID: 1957620852}
-  Timer: 150
+  Timer: 180
 --- !u!4 &101645705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9abf41a0e32682443a2e9439d40d6157, type: 3}
@@ -4519,8 +4519,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 562550766741165123, guid: 36fd7cd68b0326c48b11a0143e3ceec8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 562550766741165123, guid: 36fd7cd68b0326c48b11a0143e3ceec8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 562550766741165123, guid: 36fd7cd68b0326c48b11a0143e3ceec8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 562550766741165123, guid: 36fd7cd68b0326c48b11a0143e3ceec8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 562550766741165123, guid: 36fd7cd68b0326c48b11a0143e3ceec8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5174
+      value: -0.0221
+      objectReference: {fileID: 0}
+    - target: {fileID: 562550766741165123, guid: 36fd7cd68b0326c48b11a0143e3ceec8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.053
       objectReference: {fileID: 0}
     - target: {fileID: 4900216993530500359, guid: 36fd7cd68b0326c48b11a0143e3ceec8, type: 3}
       propertyPath: m_Name
