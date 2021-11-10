@@ -9,6 +9,7 @@ public class InGame : MonoBehaviour
     [Header("Set basics for HUD")]
     public TextMeshProUGUI Text_Time;
     public TextMeshProUGUI Distance_Tx;
+    public GameObject Minimap;
     public GameObject Pos0;
     public GameObject Player;
     public GameObject MenuGameOver;
@@ -49,6 +50,9 @@ public class InGame : MonoBehaviour
         {
             MenuGameOver.gameObject.SetActive(true);
             GO_Timer.gameObject.SetActive(false);
+            Text_Time.gameObject.SetActive(false);
+            Distance_Tx.gameObject.SetActive(false);
+            Minimap.gameObject.SetActive(false);
         }
 
         /*if (onceTimer == true)
