@@ -9,6 +9,7 @@ public class InGame : MonoBehaviour
     [Header("Set basics for HUD")]
     public TextMeshProUGUI Text_Time;
     public TextMeshProUGUI Distance_Tx;
+    public GameObject Minimap;
     public GameObject Pos0;
     public GameObject Player;
     public GameObject MenuGameOver;
@@ -40,7 +41,7 @@ public class InGame : MonoBehaviour
         if (Player != null && Player.activeSelf == true) //Cronometro
         {
             Timer -= Time.deltaTime;
-            Text_Time.text = "Time: " + Timer.ToString("F2");
+            Text_Time.text = "Fuel: " + Timer.ToString("F2");
 
             Distance_Tx.text = DistanciaRecorrida.ToString("F2") + " m";
         }
@@ -48,7 +49,8 @@ public class InGame : MonoBehaviour
         if(Timer <= 0)
         {
             MenuGameOver.gameObject.SetActive(true);
-            GO_Timer.gameObject.SetActive(false);
+            GO_Timer.gameObject.SetActive(false);     
+            Minimap.gameObject.SetActive(false);
         }
 
         /*if (onceTimer == true)

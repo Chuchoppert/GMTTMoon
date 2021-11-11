@@ -28,7 +28,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceV: 0
   limiter: 0
-  divisor: 1.5
+  divisor: 5.38
   LimitadorMax: 0.3
 --- !u!64 &231373721
 MeshCollider:
@@ -69,15 +69,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 592e875033976974ebb4415eff8e7459, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 592e875033976974ebb4415eff8e7459, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4331526
+      value: -0.108
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 592e875033976974ebb4415eff8e7459, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.24999999
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 592e875033976974ebb4415eff8e7459, type: 3}
       propertyPath: m_LocalRotation.w

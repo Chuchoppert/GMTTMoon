@@ -44,6 +44,7 @@ public class PlayerMovements : MonoBehaviour
     private Rigidbody rb;
     private float yMovement;
     private float xMovement;
+    private float zMovement;
     private Vector3 heading;
     private float distance;
     private Vector3 OriginalMovementAxis;
@@ -139,6 +140,8 @@ public class PlayerMovements : MonoBehaviour
             {
                 points[i] = Instantiate(point, StartPosLr, Quaternion.identity);
             }
+
+            //PowerGraph.value = MaxPowerGpForAnotherAttempt;
         }
         isFirstResetReady = true;
     }
@@ -148,6 +151,7 @@ public class PlayerMovements : MonoBehaviour
     {
         xMovement = OriginalMovementAxis.x;
         yMovement = OriginalMovementAxis.y;
+        zMovement = OriginalMovementAxis.z;
         ViewRotation.transform.position = new Vector3((Mathf.Clamp( ViewRotation.transform.position.x, (transform.position.x - 4), (transform.position.x + 4) )), (Mathf.Clamp( ViewRotation.transform.position.y, (transform.position.y - 1), (transform.position.y + 6) )), (transform.position.z + 2)); //limita el movimiento 
 
         ViewRotation.transform.Translate(new Vector3(xMovement, yMovement, 0), Space.World); //esta es la pos de referencia mas importante del codigo
@@ -220,6 +224,21 @@ public class PlayerMovements : MonoBehaviour
         if (collision.gameObject.layer == 10)
         {
             isOnGround = true;            
+        }
+    }
+
+
+    private Vector3 respawnOffset = new Vector3(0f, 0.5f, 0f);
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Respawn")
+        {
+            xMovement = 0;
+            zMovement = 0;
+            yMovement = 0;
+            this.transform.position = StartPosLr + respawnOffset;
+            rb.velocity = Vector3.zero;
         }
     }
 }

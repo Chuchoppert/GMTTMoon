@@ -8,12 +8,13 @@ public class CameraFollow_UpVision : MonoBehaviour
     public GameObject Player;
     public float smoothSpeed = 0.125f;
 
+    public Vector3 UpViewOffset;
     private Vector3 SmoothedPosition;
 
     // Update is called once per frame
     void Update()
     {
-        SmoothedPosition = Vector3.Lerp(transform.position, Player.transform.position, smoothSpeed);
+        SmoothedPosition = Vector3.Lerp(transform.position, Player.transform.position, smoothSpeed)+UpViewOffset;
 
         gameObject.transform.position = new Vector3(SmoothedPosition.x, gameObject.transform.position.y, SmoothedPosition.z);
     }
