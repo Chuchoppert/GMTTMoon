@@ -15,7 +15,7 @@ public class InGame : MonoBehaviour
     public GameObject MenuGameOver;
     public GameObject GO_Timer;
     public float Timer = 60f;
-
+    public GameObject MenuPause;
 
     //public GameObject MensajeInitial;
     //public float AmountPerTime;
@@ -52,6 +52,21 @@ public class InGame : MonoBehaviour
             GO_Timer.gameObject.SetActive(false);     
             Minimap.gameObject.SetActive(false);
         }
+
+        
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {                   
+            if (MenuPause.activeSelf == true)
+            {
+                MenuPause.SetActive(false);
+            }
+            else
+            {
+                MenuPause.SetActive(true);
+            }
+        }
+       
 
         /*if (onceTimer == true)
         {
