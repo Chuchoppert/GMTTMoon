@@ -225,8 +225,12 @@ MonoBehaviour:
   Player: {fileID: 1514464386}
   MenuGameOver: {fileID: 900348504}
   GO_Timer: {fileID: 1957620852}
-  Timer: 180
+  Timer: 120
   MenuPause: {fileID: 1261480931}
+  SoundPlayer: {fileID: 1739667399}
+  SoundsGame:
+  - {fileID: 8300000, guid: 95c527ae4601a034d81be41ff3055acb, type: 3}
+  - {fileID: 8300000, guid: c554ef2658780b547884c751153421fb, type: 3}
 --- !u!4 &101645705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9abf41a0e32682443a2e9439d40d6157, type: 3}
@@ -713,7 +717,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 257}
+  m_AnchoredPosition: {x: 0, y: 125}
   m_SizeDelta: {x: 1519.1885, y: 379.7971}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &508527554
@@ -736,7 +740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gameover
+  m_text: You ran out of fuel!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2b367d1a368d28b4d8404a6949c3e699, type: 2}
   m_sharedMaterial: {fileID: -2950618795472243642, guid: 2b367d1a368d28b4d8404a6949c3e699, type: 2}
@@ -3553,7 +3557,7 @@ MonoBehaviour:
   SetGravity: {x: 0, y: -9.8, z: 0}
   RotationSpeed: 3
   PowerGraph: {fileID: 1776569745}
-  Impulse: 18
+  Impulse: 22
   PowerAmount: 1
   MinPower: 0
   ViewRotation: {fileID: 1109818231}
@@ -3567,7 +3571,15 @@ MonoBehaviour:
   points: []
   UpVision_Camera: {fileID: 1108934765}
   SoundPlayer: {fileID: 1243303859}
-  SoundsBall: []
+  SoundsBall:
+  - {fileID: 8300000, guid: a32f6210367e52742bb7ddba242c6365, type: 3}
+  - {fileID: 8300000, guid: c48934b9af2c157439071122fb85b305, type: 3}
+  - {fileID: 8300000, guid: 9ba6bfdd679a44949827b2aad76b8e37, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 613552ac6d293164ab7df854a252c563, type: 3}
+  - {fileID: 8300000, guid: 31e4f9afd491db946bba995e8e0be007, type: 3}
+  - {fileID: 8300000, guid: 4268eaa1a714f7a4ebbe5f190143173f, type: 3}
 --- !u!1001 &1550195722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4113,11 +4125,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1389af9926d4fa1438cb7450ac9631fc, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

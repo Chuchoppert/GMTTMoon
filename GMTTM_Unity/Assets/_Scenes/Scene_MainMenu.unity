@@ -676,7 +676,7 @@ MonoBehaviour:
       isFptlEnabled: 0
   clearColorMode: 2
   backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
-  clearDepth: 0
+  clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -1912,7 +1912,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fa8ef67d7189c524b8d914b15f127976, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
