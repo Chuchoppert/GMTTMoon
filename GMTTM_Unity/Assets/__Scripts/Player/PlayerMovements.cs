@@ -40,6 +40,19 @@ public class PlayerMovements : MonoBehaviour
     public GameObject[] points;
     public Camera UpVision_Camera;
 
+    [Header("Config sfx")]
+    public AudioSource SoundPlayer;
+    public AudioClip[] SoundsBall;
+    //Lista de SFX para que no te pierdas
+    //0 = 
+    //1 =
+    //2 =
+    //3 =
+    //4 =
+    //5 =
+    //6 =
+    //7 =
+
 
     private Rigidbody rb;
     private float yMovement;
@@ -70,6 +83,10 @@ public class PlayerMovements : MonoBehaviour
         {
             if(rb.velocity == Vector3.zero) //resetea la rotacion para el siguiente lanzamiento
             {
+                ////////////////////////// AQUI PUEDE HABER UN SONIDO DE INICIO DE LANZAMIENTO ////////////////////////
+                ///SoundToPlay(0);
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////
+                
                 startingAttempt();
                 StartPosLr = gameObject.transform.position;
                 preEndpos = ViewRotation.transform.position;
@@ -81,7 +98,7 @@ public class PlayerMovements : MonoBehaviour
                 {
                     StartPowerGraph();
                 }
-                //Debug.DrawLine(transform.position, transform.forward * 10, Color.red);
+
                 if (isSetRotation == false) //crea la fuerza para la rotacion
                 {
                     OriginalMovementAxis = new Vector3((Input.GetAxis("Horizontal") * RotationSpeed * Time.deltaTime), (Input.GetAxis("Vertical") * RotationSpeed * Time.deltaTime), 0);
@@ -92,7 +109,7 @@ public class PlayerMovements : MonoBehaviour
                     StopPowerGraph();
                 }
             }           
-            // -1 + abs
+
             PowerGraph.value = Math.Abs((PowerGraphAmount-1)); //setea el valor a la barra de poder
 
             heading = preEndpos - StartPosLr;
@@ -101,13 +118,10 @@ public class PlayerMovements : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() //Es mejor que update() cuando se trata de fisicas
-    {
-          
-
-        if(points.Length != 0)
+    private void FixedUpdate() 
+    {       
+        if (points.Length != 0)
         {
-
             if (points.Length != 0)
             {
                 for (int i = 0; i < numberOfPoints; i++) //Guia de lanzamiento part2 (hace de separador de cada punto de la guia)  
@@ -115,10 +129,7 @@ public class PlayerMovements : MonoBehaviour
                     points[i].transform.position = PointPosition(i * spaceBetweenPoints);
                 }
             }
-
-        }
-
-        
+        }        
     }
 
 
@@ -135,13 +146,12 @@ public class PlayerMovements : MonoBehaviour
         {
             transform.rotation = initialRotation;
 
+
             points = new GameObject[numberOfPoints]; //Guia de lanzamiento part1 (inicia cuantas bolitas deberian aparecer para la guia, colocando la primera desde la pos de la bolita)
             for (int i = 0; i < numberOfPoints; i++)
             {
                 points[i] = Instantiate(point, StartPosLr, Quaternion.identity);
             }
-
-            //PowerGraph.value = MaxPowerGpForAnotherAttempt;
         }
         isFirstResetReady = true;
     }
@@ -155,6 +165,13 @@ public class PlayerMovements : MonoBehaviour
         ViewRotation.transform.position = new Vector3((Mathf.Clamp( ViewRotation.transform.position.x, (transform.position.x - 4), (transform.position.x + 4) )), (Mathf.Clamp( ViewRotation.transform.position.y, (transform.position.y - 1), (transform.position.y + 6) )), (transform.position.z + 2)); //limita el movimiento 
 
         ViewRotation.transform.Translate(new Vector3(xMovement, yMovement, 0), Space.World); //esta es la pos de referencia mas importante del codigo
+
+        ////////////////////////// AQUI PUEDE HABER UN SONIDO DE CUANDO SE MUEVEN LAS GUIAS//////////////////////
+        /*if(xMovement != 0 && yMovement != 0) //Si hay movimiento en las teclas WASD entonces se escuchara ese sonido (utiliza un sonido de 1sg o menos, si no se repetira el mismo sonido)
+        {
+            SoundToPlay(1);
+        }*/
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
 
@@ -163,7 +180,11 @@ public class PlayerMovements : MonoBehaviour
         isSetRotation = true;
         rb.constraints = RigidbodyConstraints.FreezeAll;
 
-        PowerGraph.gameObject.SetActive(true);   
+        PowerGraph.gameObject.SetActive(true);
+
+        ///////////////////// AQUI PUEDE HABER UN SONIDO DE ACTIVACION DE BARRA DE FUERZA /////////////////////
+        ///SoundToPlay(2);
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
 
@@ -176,6 +197,9 @@ public class PlayerMovements : MonoBehaviour
             {
                 isSubtractPowerGraph = true;
             }
+            ///////////////////// AQUI PUEDE HABER UN SONIDO DE SUBIDA DE FUERZA //////////////////////////////////
+            ///SoundToPlay(3);
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
         }
         else
         {
@@ -184,6 +208,9 @@ public class PlayerMovements : MonoBehaviour
             {
                 isSubtractPowerGraph = false;
             }
+            ///////////////////// AQUI PUEDE HABER UN SONIDO DE BAJADA DE FUERZA //////////////////////////////////
+            ///SoundToPlay(4);
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }
 
@@ -208,6 +235,10 @@ public class PlayerMovements : MonoBehaviour
         PowerGraph.gameObject.SetActive(false);
         rb.AddForce( ForceDir, ForceMode.Impulse);
         Invoke("ResetBooleans", 1);
+
+        ///////////////////// AQUI PUEDE HABER UN SONIDO DE LANZAMIENTO ///////////////////////////////////////
+        ///SoundToPlay(5);
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
 
@@ -223,7 +254,11 @@ public class PlayerMovements : MonoBehaviour
     {
         if (collision.gameObject.layer == 10)
         {
-            isOnGround = true;            
+            isOnGround = true;
+
+            ///////////////////// AQUI PUEDE HABER UN SONIDO DE CAIDA DE LA PELOTA  ///////////////////////////////
+            ///SoundToPlay(6);
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }
 
@@ -239,6 +274,67 @@ public class PlayerMovements : MonoBehaviour
             yMovement = 0;
             this.transform.position = StartPosLr + respawnOffset;
             rb.velocity = Vector3.zero;
+
+            //////////////////////////// AQUI PUEDE HABER UN SONIDO DE "RESPAWN" //////////////////////////////////
+            ///SoundToPlay(7);
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
         }
+    }
+
+    private void SoundToPlay(int IndexSound)
+    {
+        ///Primera opcion (si falla o se bugea algo, utiliza la segunda opcion)
+        SoundPlayer.clip = SoundsBall[IndexSound];
+        SoundPlayer.PlayOneShot(SoundPlayer.clip);
+
+
+        ///Segunda Opcion
+        /*if(IndexSound == 0)
+        {
+            SoundPlayer.clip = SoundsBall[0];
+            SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }
+
+        if (IndexSound == 1)
+        {
+            SoundPlayer.clip = SoundsBall[1];
+            SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }
+
+        if (IndexSound == 2)
+        {
+            SoundPlayer.clip = SoundsBall[2];
+            SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }
+
+        if (IndexSound == 3)
+        {
+            SoundPlayer.clip = SoundsBall[3];
+            SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }*/
+
+        /*if(IndexSound == 4)
+        {
+            SoundPlayer.clip = SoundsBall[4];
+            SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }
+
+        if (IndexSound == 5)
+        {
+            SoundPlayer.clip = SoundsBall[5];
+            SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }
+
+        if (IndexSound == 6)
+        {
+            SoundPlayer.clip = SoundsBall[6];
+            SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }
+
+        if (IndexSound == 7)
+        {
+            SoundPlayer.clip = SoundsBall[7];
+            SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }*/
     }
 }
