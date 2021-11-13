@@ -7,7 +7,7 @@ public class ProceduralGeneration : MonoBehaviour
     public GameObject[] itemsToPickFrom;
     public int gridX;
     public int gridZ;
-    public float gridSpacingOffset = 6f;
+    public float gridSpacingOffset = 7f;
     public Vector3 gridOrigin = Vector3.zero;
     public Vector3 positionRandomization;
 

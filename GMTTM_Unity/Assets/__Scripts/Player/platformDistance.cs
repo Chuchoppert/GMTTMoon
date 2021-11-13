@@ -35,5 +35,5 @@ public class platformDistance : MonoBehaviour
             limiter = distanceV;
         }
     }
-
+    
 }

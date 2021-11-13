@@ -51,7 +51,7 @@ public class InGame : MonoBehaviour
             MenuGameOver.gameObject.SetActive(true);
             GO_Timer.gameObject.SetActive(false);     
             Minimap.gameObject.SetActive(false);
-            SoundToPlay(0);            
+            //SoundToPlay(0);            
         }
 
         
