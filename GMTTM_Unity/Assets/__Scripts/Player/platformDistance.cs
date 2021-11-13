@@ -7,7 +7,7 @@ public class platformDistance : MonoBehaviour
     public float distanceV;
     public float limiter;  
     public float divisor;
-    public float LimitadorMax = 0.3f;
+    public float LimitadorMax = 0.45f;
 
     private void Update()
     {

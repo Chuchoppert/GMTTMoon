@@ -29,7 +29,7 @@ MonoBehaviour:
   distanceV: 0
   limiter: 0
   divisor: 4.6
-  LimitadorMax: 0.3
+  LimitadorMax: 0.7
 --- !u!64 &1297125926
 MeshCollider:
   m_ObjectHideFlags: 0
