@@ -51,6 +51,7 @@ public class InGame : MonoBehaviour
             MenuGameOver.gameObject.SetActive(true);
             GO_Timer.gameObject.SetActive(false);     
             Minimap.gameObject.SetActive(false);
+            //SoundToPlay(0);            
         }
 
         
@@ -64,6 +65,7 @@ public class InGame : MonoBehaviour
             else
             {
                 MenuPause.SetActive(true);
+                SoundToPlay(1);
             }
         }
        
@@ -93,4 +95,16 @@ public class InGame : MonoBehaviour
             }
         }*/
     }
-}
+
+
+    [Header("Config sfx")]
+    public AudioSource SoundPlayer;
+    public AudioClip[] SoundsGame;
+
+    private void SoundToPlay(int IndexSound)
+        {
+        ///Primera opcion (si falla o se bugea algo, utiliza la segunda opcion)
+        SoundPlayer.clip = SoundsGame[IndexSound];
+        SoundPlayer.PlayOneShot(SoundPlayer.clip);
+        }
+    }

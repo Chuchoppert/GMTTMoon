@@ -37,6 +37,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1981136113, guid: 138812e32b510f24486531ceb488c517, type: 3}
+      propertyPath: LimitadorMax
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 7204633131087906699, guid: 138812e32b510f24486531ceb488c517, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -42,8 +42,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceV: 0
   limiter: 0
-  divisor: 4.15
-  LimitadorMax: 0.3
+  divisor: 8
+  LimitadorMax: 0.7
 --- !u!1001 &988942049956432559
 PrefabInstance:
   m_ObjectHideFlags: 0

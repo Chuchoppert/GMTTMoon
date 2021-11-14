@@ -111,8 +111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceV: 0
   limiter: 0
-  divisor: 5.87
-  LimitadorMax: 0.3
+  divisor: 7
+  LimitadorMax: 0.7
 --- !u!1 &173659468906443715
 GameObject:
   m_ObjectHideFlags: 0

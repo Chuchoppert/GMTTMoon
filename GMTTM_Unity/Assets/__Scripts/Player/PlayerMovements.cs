@@ -84,9 +84,9 @@ public class PlayerMovements : MonoBehaviour
             if(rb.velocity == Vector3.zero) //resetea la rotacion para el siguiente lanzamiento
             {
                 ////////////////////////// AQUI PUEDE HABER UN SONIDO DE INICIO DE LANZAMIENTO ////////////////////////
-                ///SoundToPlay(0);
+                //SoundToPlay(0);
                 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-                
+
                 startingAttempt();
                 StartPosLr = gameObject.transform.position;
                 preEndpos = ViewRotation.transform.position;
@@ -114,7 +114,9 @@ public class PlayerMovements : MonoBehaviour
 
             heading = preEndpos - StartPosLr;
             distance = heading.magnitude;
-            ForceDir = ( ((heading / distance) * Impulse) * PowerGraphAmount);                
+            ForceDir = ( ((heading / distance) * Impulse) * PowerGraphAmount);
+
+
         }
     }
 
@@ -166,11 +168,12 @@ public class PlayerMovements : MonoBehaviour
 
         ViewRotation.transform.Translate(new Vector3(xMovement, yMovement, 0), Space.World); //esta es la pos de referencia mas importante del codigo
 
+        
         ////////////////////////// AQUI PUEDE HABER UN SONIDO DE CUANDO SE MUEVEN LAS GUIAS//////////////////////
-        /*if(xMovement != 0 && yMovement != 0) //Si hay movimiento en las teclas WASD entonces se escuchara ese sonido (utiliza un sonido de 1sg o menos, si no se repetira el mismo sonido)
+        if(xMovement != 0 && yMovement != 0) //Si hay movimiento en las teclas WASD entonces se escuchara ese sonido (utiliza un sonido de 1sg o menos, si no se repetira el mismo sonido)
         {
-            SoundToPlay(1);
-        }*/
+           // SoundToPlay(1);
+        }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -183,7 +186,7 @@ public class PlayerMovements : MonoBehaviour
         PowerGraph.gameObject.SetActive(true);
 
         ///////////////////// AQUI PUEDE HABER UN SONIDO DE ACTIVACION DE BARRA DE FUERZA /////////////////////
-        ///SoundToPlay(2);
+        //SoundToPlay(2);
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -237,7 +240,7 @@ public class PlayerMovements : MonoBehaviour
         Invoke("ResetBooleans", 1);
 
         ///////////////////// AQUI PUEDE HABER UN SONIDO DE LANZAMIENTO ///////////////////////////////////////
-        ///SoundToPlay(5);
+        SoundToPlay(5);
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -257,13 +260,14 @@ public class PlayerMovements : MonoBehaviour
             isOnGround = true;
 
             ///////////////////// AQUI PUEDE HABER UN SONIDO DE CAIDA DE LA PELOTA  ///////////////////////////////
-            ///SoundToPlay(6);
+            //SoundToPlay(6);
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }
 
 
     private Vector3 respawnOffset = new Vector3(0f, 0.5f, 0f);
+    
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -276,8 +280,13 @@ public class PlayerMovements : MonoBehaviour
             rb.velocity = Vector3.zero;
 
             //////////////////////////// AQUI PUEDE HABER UN SONIDO DE "RESPAWN" //////////////////////////////////
-            ///SoundToPlay(7);
+            SoundToPlay(7);
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+
+        if (collision.gameObject.tag == "Piso")
+        {
+            rb.velocity = rb.velocity * 0.3f;
         }
     }
 
@@ -311,9 +320,9 @@ public class PlayerMovements : MonoBehaviour
         {
             SoundPlayer.clip = SoundsBall[3];
             SoundPlayer.PlayOneShot(SoundPlayer.clip);
-        }*/
+        }
 
-        /*if(IndexSound == 4)
+        if(IndexSound == 4)
         {
             SoundPlayer.clip = SoundsBall[4];
             SoundPlayer.PlayOneShot(SoundPlayer.clip);

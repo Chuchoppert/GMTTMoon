@@ -28,8 +28,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceV: 0
   limiter: 0
-  divisor: 5.38
-  LimitadorMax: 0.3
+  divisor: 7
+  LimitadorMax: 0.7
 --- !u!64 &231373721
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -171,15 +171,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 296acb11b042ac44d8b82605abb42c24, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 296acb11b042ac44d8b82605abb42c24, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 296acb11b042ac44d8b82605abb42c24, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 296acb11b042ac44d8b82605abb42c24, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

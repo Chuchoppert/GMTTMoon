@@ -7,7 +7,7 @@ public class platformDistance : MonoBehaviour
     public float distanceV;
     public float limiter;  
     public float divisor;
-    public float LimitadorMax = 0.3f;
+    public float LimitadorMax = 0.45f;
 
     private void Update()
     {
@@ -16,7 +16,7 @@ public class platformDistance : MonoBehaviour
         {
             limiter = LimitadorMax;
         }       
-        PlayerMovements.MaxPowerGpForAnotherAttempt = limiter;
+        //PlayerMovements.MaxPowerGpForAnotherAttempt = this.limiter;
     }
 
 
@@ -33,7 +33,9 @@ public class platformDistance : MonoBehaviour
         {
             distanceV = Mathf.Abs(((Vector3.Distance(transform.position, collision.contacts[0].point))/divisor)-1);
             limiter = distanceV;
+
+            PlayerMovements.MaxPowerGpForAnotherAttempt = limiter;
         }
     }
-
+    
 }
